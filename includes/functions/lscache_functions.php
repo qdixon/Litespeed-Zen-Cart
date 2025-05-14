@@ -1,28 +1,22 @@
 <?php
+function lscache_control_headers() {
+    if (!defined('LSCACHE_ENABLED') || LSCACHE_ENABLED !== 'true') return;
 
-class LSCache {
-    public static function hookListeners() {
-        // Product updated hook
-        if (defined('FILENAME_CATEGORIES') && $_GET['action'] === 'update_product') {
-            register_shutdown_function(['LSCache', 'purgeCache']);
-        }
+    $no_cache_pages = [
+        'login', 'shopping_cart', 'checkout_shipping', 'checkout_payment', 'checkout_confirmation', 'account'
+    ];
 
-        // Category updated hook
-        if (defined('FILENAME_CATEGORIES') && $_GET['action'] === 'update_category') {
-            register_shutdown_function(['LSCache', 'purgeCache']);
-        }
+    $current_page = basename($_SERVER['SCRIPT_FILENAME'], '.php');
+
+    if (in_array($current_page, $no_cache_pages)) {
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('X-LiteSpeed-Cache-Control: no-cache');
+    } else {
+        header('X-LiteSpeed-Cache-Control: public,max-age=3600');
     }
+}
 
-    public static function purgeCache() {
-        // Basic header method (works with LSWS)
-        @header("X-LiteSpeed-Purge: *");
-
-        // OR use API method if using LSCache plugin
-        /*
-        $url = "http://localhost/litespeed-cache-api/purge_all";
-        @file_get_contents($url);
-        */
-
-        error_log("[LSCache] Purge triggered");
-    }
+function lscache_purge_tag($tag) {
+    if (!defined('LSCACHE_ENABLED') || LSCACHE_ENABLED !== 'true') return;
+    header("X-LiteSpeed-Purge: tag={$tag}");
 }
