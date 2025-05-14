@@ -2,6 +2,9 @@
 Litespeed Plugin for Zen Cart
 
 
+I dont know the new encapsulated method... Maybe some help on that.
+
+
 
 
 // In admin/includes/boxes/tools_dhtml.php or equivalent add:
