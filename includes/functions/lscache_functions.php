@@ -3,7 +3,22 @@ function lscache_control_headers() {
     if (!defined('LSCACHE_ENABLED') || LSCACHE_ENABLED !== 'true') return;
 
     $no_cache_pages = [
-        'login', 'shopping_cart', 'checkout_shipping', 'checkout_payment', 'checkout_confirmation', 'account'
+        'login', 
+        'shopping_cart', 
+        'checkout_shipping', 
+        'checkout_payment', 
+        'checkout_confirmation', 
+        'checkout_success',
+        'checkout',
+        'account', 
+        'account_edit',
+        'account_history',
+        'account_history_info',
+        'account_newsletters',
+        'account_notifications',
+        'account_password',
+        'address_book',
+        'address_book_process',
     ];
 
     $current_page = basename($_SERVER['SCRIPT_FILENAME'], '.php');
