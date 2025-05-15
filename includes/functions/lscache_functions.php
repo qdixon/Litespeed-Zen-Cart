@@ -12,6 +12,7 @@ function lscache_control_headers() {
         header('Cache-Control: no-cache, no-store, must-revalidate');
         header('X-LiteSpeed-Cache-Control: no-cache');
     } else {
+        header('Cache-Control: public,max-age=3600');
         header('X-LiteSpeed-Cache-Control: public,max-age=3600');
     }
 }
